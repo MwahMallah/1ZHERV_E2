@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,6 +19,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameObject lossText;
     
+    /// <summary>
+    /// GameObject used for the loss text.
+    /// </summary>
+    public GameObject controlText;
     /// <summary>
     /// GameObject used for the score text.
     /// </summary>
@@ -118,6 +123,7 @@ public class GameManager : MonoBehaviour
             startText.SetActive(false);
             scoreText.SetActive(true);
             lossText.SetActive(false);
+            StartCoroutine(showControls());
         }
         else
         { // Setup a new game -> Wait for start.
@@ -128,10 +134,18 @@ public class GameManager : MonoBehaviour
             startText.SetActive(true);
             scoreText.SetActive(false);
             lossText.SetActive(false);
+            controlText.SetActive(false);
         }
         
         // Set the state.
         mGameLost = false;
+    }
+
+    public IEnumerator showControls() {
+        controlText.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        controlText.SetActive(false);
+    
     }
 
     /// <summary>
